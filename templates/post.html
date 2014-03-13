@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1><a href="{{ post["link"] }}">{{ post["title"] }}</a></h1>
+
+<p>{{ post["text"] }}</p>
+
+<h3>Commentaires:</h3>
+
+<ul>
+{% for comment in post.comments %}
+<li>{{ comment["author"] }}: {{ comment["text"] }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
