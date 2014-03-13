@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask import Flask, render_template
+from stonecarver import init
 app = Flask(__name__)
 
 
@@ -23,4 +24,5 @@ def post(id):
 
 
 if __name__ == "__main__":
+    init()
     app.run(debug=True)
