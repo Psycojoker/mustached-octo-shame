@@ -30,19 +30,32 @@ class Comment(Model):
         database = db
  
 def init():
-    db.connect()
-    Post.create_table(True)
-    Comment.create_table(True)
-    Post.create(title='Hello World', author='Bram & Haxe', link = '/', text='Welcome to Mustached Octo Shame !.', date=datetime.datetime.now()).save()
+    if not Post.table_exists():
+        db.connect()
+        Post.create_table(True)
+        Comment.create_table(True)
+        Post.create(title='Hello World', author='Bram & Haxe', link = '/', text='Welcome to Mustached Octo Shame !.', date=datetime.datetime.now()).save()
 
 def get_posts():
-    return map(lambda p: p.to_dict(), Post.select().order_by(Post.date.desc()))
+    db.connect()
+    p = map(lambda p: p.to_dict(), Post.select().order_by(Post.date.desc()))
+    return p
+
+def get_post(dbid):
+    db.connect()
+    p = Post.get(Post.dbid == dbid).to_dict()
+    p['comments'] = get_post_comments(dbid)
+    return p
 
 def get_post_comments(dbid):
-    return map(lambda c: c.to_dict(), Post.get(Post.dbid == dbid).comments.order_by(Comment.date.desc()))
+    db.connect()
+    c = map(lambda c: c.to_dict(), Post.get(Post.dbid == dbid).comments.order_by(Comment.date.desc()))
+    return c
 
 def store_post(title, author, link, text, date):
+    db.connect()
     Post.create(title=title, author=author, link=link, text=text, date=date).save()
 
 def store_comment(post, author, text, date):
+    db.connect()
     Comment.create(post=post, author=author, text=text, date=date).save()
