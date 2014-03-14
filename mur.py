@@ -1,25 +1,18 @@
 from datetime import datetime
 from flask import Flask, render_template
-from stonecarver import init
+from stonecarver import init, get_posts, get_post
 app = Flask(__name__)
 
 
 @app.route("/")
 def home():
-    #posts = get_posts()
-    posts = [{"id": 1, "title": "pouet", "link": "http://tamere.com", "author": "haxe", "date": datetime.now()}]
-
+    posts = get_posts()
     return render_template("home.html", posts=posts)
 
 
 @app.route("/<id>")
 def post(id):
-    #post = get_post(id)
-    post = {"title": "pouet", "link": "http://tamere.com", "author": "haxe", "date": datetime.now(), "text": "this is the <i>text</i>",
-            "comments": [{
-                "author": "Bram",
-                "text": "youplaboum",
-            }]}
+    post = get_post(id)
     return render_template("post.html", post=post)
 
 
