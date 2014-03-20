@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Mustached Octo Shame</h1>
+
+<form action="new" method="post">
+    Auteur: <input type="text" name="author">
+    </br>
+    Titre: <input type="text" name="title">
+    </br>
+    Lien: <input type="text" name="link">
+    </br>
+    Texte: 
+    </br>
+    <textarea rows=10 name="text"></textarea>
+    </br>
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}

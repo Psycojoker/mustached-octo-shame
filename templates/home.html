@@ -3,6 +3,8 @@
 {% block content %}
 <h1>Mustached Octo Shame</h1>
 
+<a href="/new">Écrire un nouveau post</a>
+
 <ul>
 {% for post in posts %}
 <li><a href="{{ post["link"] }}">{{ post["title"] }}</a> - <a href="{{ post["dbid"] }}">commentaires</a></li>
